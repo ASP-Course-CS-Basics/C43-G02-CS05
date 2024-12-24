@@ -142,7 +142,7 @@
                 -A copy of the variable is passed.
                 -Modifications inside the function do not affect the original value.
 
-                By Reference (ref):
+                By Reference:
                 -The actual variable is passed.
                 -Modifications inside the function directly affect the original value.
             
