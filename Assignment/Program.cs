@@ -49,6 +49,17 @@
         //    return result;
         //}
         #endregion
+
+        #region Q8
+        public static void ChangeChar(ref string input, int position, char newChar)
+        {
+            char[] charArray = input.ToCharArray();
+
+            charArray[position-1] = newChar;
+
+            input = new string(charArray);
+        }
+        #endregion
         static void Main(string[] args)
         {
             #region Q1!!
@@ -81,6 +92,18 @@
             #region Q7
             //int.TryParse(Console.ReadLine(), out int num);
             //Console.WriteLine(Factorial(num));
+            #endregion
+
+            #region Q8
+            //Console.WriteLine("Enter the String: ");
+            //string text = Console.ReadLine()!;
+            //Console.WriteLine("Enter the Position would you modify : ");
+            //int.TryParse(Console.ReadLine(), out int Position);
+            //Console.WriteLine("Enter the Replacement Char : ");
+            //char.TryParse(Console.ReadLine(), out char newChar);
+
+            //ChangeChar(ref text, Position, newChar);
+            //Console.WriteLine(text);
             #endregion
         }
     }
