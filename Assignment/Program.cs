@@ -34,7 +34,21 @@
         }
         #endregion
 
+        #region Q6!!
 
+        #endregion
+
+        #region Q7
+        //public static int Factorial(int num)
+        //{
+        //    int result = 1;
+        //    for(int i = 1; i <= num; i++)
+        //    {
+        //        result *= i; 
+        //    }
+        //    return result;
+        //}
+        #endregion
         static void Main(string[] args)
         {
             #region Q1!!
@@ -60,7 +74,14 @@
             //Console.WriteLine(IsPrime(num));
             #endregion
 
+            #region Q6!!
 
+            #endregion
+
+            #region Q7
+            //int.TryParse(Console.ReadLine(), out int num);
+            //Console.WriteLine(Factorial(num));
+            #endregion
         }
     }
 }
