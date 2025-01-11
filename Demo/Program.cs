@@ -70,6 +70,95 @@
 
         #endregion
 
+        #region Part 03 Functions - ReferenceType Parameters
+
+        #region Passing By Value
+
+        #region Ex01
+
+        static int SumArrEx02_01(int[] arr) // when saying SumArr(numbers) => arr = numbers = addres of array {1,2,3,4,5};
+        {
+            int result = 0;
+            if (arr is { } && arr.Length > 0)
+            {
+                arr[0] = 100; //{100,2,3,4,5};
+                //This Modify of value of index [0] of reference "arr" that refer to the object array of integers {1,2,3,4,5} will affect the value of index [0] in numbers array because the references (arr,numbers) refer to the same object
+                for (int i = 0; i < arr?.Length; i++)
+                {
+                    result += arr[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region Ex02
+
+        static int SumArrEx02_02(int[] arr) // when saying SumArr(numbers) => arr = Value of numbers = address of array {1,2,3,4,5};
+        {
+            int result = 0;
+            if (arr is { } && arr.Length > 0)
+            {
+                //arr[0] = 100; //{100,2,3,4,5};
+                arr = new int[] { 100, 200, 300 };//The reference "arr" leave referring to the object {1,2,3,4,5} and refer to new object, and numbers reference still refer to object {1,2,3,4,5} .
+                for (int i = 0; i < arr?.Length; i++)
+                {
+                    result += arr[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Passing By Reference [ref]
+
+        #region Ex01
+
+        static int SumArrEx02_01(ref int[] arr) // when saying SumArr(ref numbers) => arr is alias for numbers that refer to address of array {1,2,3,4,5};
+        {
+            int result = 0;
+            if (arr is { } && arr.Length > 0)
+            {
+                arr[0] = 100; //{100,2,3,4,5};
+                //This Modify of value of index [0] of reference "arr" that refer to the object array of integers {1,2,3,4,5} will affect the value of index [0] in numbers array because the references (arr,numbers) refer to the same object
+                for (int i = 0; i < arr?.Length; i++)
+                {
+                    result += arr[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+
+        #region Ex02
+
+        static int SumArrEx02_02(ref int[] arr) // when saying SumArr(ref numbers) => "arr" is alias/Rename for reference "numbers" that refer to address of array {1,2,3,4,5};
+        {
+            int result = 0;
+            if (arr is { } && arr.Length > 0)
+            {
+                //arr[0] = 100; //{100,2,3,4,5};
+                arr = new int[] { 100, 200, 300 };//this arr itself modified it's elements values to be from {1,2,3,4,5} to {100,200,300}.
+                for (int i = 0; i < arr?.Length; i++)
+                {
+                    result += arr[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #endregion
+
+        #endregion
+
         static void Main(string[] args)
         {
 
@@ -136,6 +225,54 @@
 
             #endregion
 
+
+            #endregion
+
+            #region Part 03 Functions - ReferenceType Parameters
+
+            #region Passing By Value
+
+            #region Ex01
+
+            //int[] numbers = new int[5] { 1, 2, 3, 4, 5 };
+
+            //Console.WriteLine(SumArrEx02_01(numbers));// (114) -  Passing by value => SumArrEx02_01(value) - SumArrEx02_01(numbers) - SumArrEx02_01(Address of The Array of integers in heap) ). Pass Value Of Numbers 
+            //Console.WriteLine(numbers[0]);//100  
+
+            #endregion
+
+            #region Ex02
+
+            //int[] numbers = new int[5] { 1, 2, 3, 4, 5 };
+
+            //Console.WriteLine(SumArrEx02_02(numbers));// 600 [the sum of the new object elements that initialize into function SumArrEx02_02() ] -  Passing by value => SumArrEx02_01(value) - SumArrEx02_01(numbers) - SumArrEx02_01(Address of The Array of integers in heap) ). Pass Value Of Numbers 
+            //Console.WriteLine(numbers[0]);// "1" not "100" - because I access the "numbers" elements which is {1,2,3,4,5} not "arr" elements {100,200,300} - and i pass the value of "numbers" which is address of {1,2,3,4,5} not the "numbers" it self and then "arr" decide to refer to new object inside the function  
+
+            #endregion
+
+            #endregion
+
+            #region Passing By Reference [ref]
+
+            #region Ex01
+
+            //int[] numbers = new int[5] { 1, 2, 3, 4, 5 };
+
+            //Console.WriteLine(SumArrEx02_01(ref numbers));// (114) -  Passing The Reference itself not value of reference => SumArrEx02_01(reference) - SumArrEx02_01(numbers) ). Pass The Reference "Numbers" to the function parameter "arr" 
+            //Console.WriteLine(numbers[0]);//100
+            //
+            #endregion
+
+            #region Ex02
+
+            int[] numbers = new int[] { 1, 2, 3, 4, 5 };
+
+            Console.WriteLine(SumArrEx02_02(ref numbers));// (600) -  Passing The Reference itself not value of reference => SumArrEx02_02(reference) - SumArrEx02_02(numbers) ). Pass The Reference "Numbers" to the function parameter "arr" so any change to "arr" will affect the "numbers".
+            Console.WriteLine(numbers[0]);//100 
+
+            #endregion
+
+            #endregion
 
             #endregion
 
