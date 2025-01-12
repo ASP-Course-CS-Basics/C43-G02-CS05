@@ -1,4 +1,7 @@
-﻿namespace Demo
+﻿
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Demo
 {
     internal class Program
     {
@@ -171,6 +174,38 @@
 
         #endregion
 
+        #region Ex02 - Part 06 Functions - Passing By Out (REAL Example) - Function check if customer has discount based on his points
+
+        static bool CheckDiscount(int customerId,out decimal discount)
+        {
+            //Simulate Fetching Data of this customer from DataBase
+            int points = GetCustomerPoints(customerId);
+
+            if(points > 1000)
+            {
+                discount = points * .1m;
+                return true;
+            }
+            discount = default;//Default value of decimal(0).
+            return false;
+        }
+
+        private static int GetCustomerPoints(int customerId)
+        {
+            if (customerId == 1001)
+            {
+                return 10_000;
+            }
+            else if (customerId == 2002)
+            {
+                return 5_000;
+            }
+            else
+                return 0;//Unknown Customer
+        }
+
+        #endregion
+
         #endregion
 
         static void Main(string[] args)
@@ -294,11 +329,30 @@
 
             #region Ex01
 
-            int num1 = 5, num2 = 6, summ, mull;
-            SumMul(num1, num2, out summ, out mull);
+            //int num1 = 5, num2 = 6, summ, mull;
+            //SumMul(num1, num2, out summ, out mull);
 
-            Console.WriteLine($"Summation =      {summ}");//11
-            Console.WriteLine($"Multiplication = {mull}");//30
+            //Console.WriteLine($"Summation =      {summ}");//11
+            //Console.WriteLine($"Multiplication = {mull}");//30
+
+            #endregion
+
+            #region Ex02 - Part 06 Functions - Passing By Out (REAL Example) - Function check if customer has discount based on his points
+
+            //int customerId = 1001;
+            //bool isEligable = false;
+            //decimal discount;
+
+            //isEligable = CheckDiscount(customerId, out discount);
+
+            //if (isEligable)
+            //{
+            //    Console.WriteLine($"This Customer Is Eligable For Discount : {discount:c}");
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"This Customer Is Not Eligable And discount is : {discount}");
+            //}
 
             #endregion
 
