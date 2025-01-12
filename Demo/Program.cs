@@ -208,6 +208,23 @@ namespace Demo
 
         #endregion
 
+        #region Part 07 Functions - Params
+
+        static int SumArr(params int[] arr)
+        {
+            int result = 0;
+            if (arr?.Length > 0)
+            {
+                for (int i= 0; i < arr.Length; i++)
+                {
+                    result += arr[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
         static void Main(string[] args)
         {
 
@@ -358,6 +375,22 @@ namespace Demo
 
             #endregion
 
+            #region Part 07 Functions - Params
+
+            int[] numbers = new int[] { 1, 2, 3, 4, 5, 6, 7 };//No Need To Do This.
+            int result = SumArr(1, 2, 3, 4, 5, 6, 7);//Do this.
+
+            Console.WriteLine(SumArr(numbers));//28  
+            Console.WriteLine(result);//28
+
+            /*
+                 * Params Parameter Must Be The Last Parameter In Method Parameters.
+                 * Params Parameter Must Be of Type array of integers int[].
+                 * Method can have only one params parameter.
+                 * Start with (.NET 9 - C# 13) params parameter may be of type array of integers or any collection.
+             */
+
+            #endregion
         }
     }
 }
