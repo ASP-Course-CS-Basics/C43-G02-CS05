@@ -159,6 +159,20 @@
 
         #endregion
 
+        #region Part 05 Functions - Passing By Out
+
+        #region Ex01
+
+        static void SumMul(int x,int y,out int summation,out int multiplication)
+        {
+            summation = x + y;
+            multiplication = x * y;
+        }
+
+        #endregion
+
+        #endregion
+
         static void Main(string[] args)
         {
 
@@ -265,12 +279,26 @@
 
             #region Ex02
 
-            int[] numbers = new int[] { 1, 2, 3, 4, 5 };
+            //int[] numbers = new int[] { 1, 2, 3, 4, 5 };
 
-            Console.WriteLine(SumArrEx02_02(ref numbers));// (600) -  Passing The Reference itself not value of reference => SumArrEx02_02(reference) - SumArrEx02_02(numbers) ). Pass The Reference "Numbers" to the function parameter "arr" so any change to "arr" will affect the "numbers".
-            Console.WriteLine(numbers[0]);//100 
+            //Console.WriteLine(SumArrEx02_02(ref numbers));// (600) -  Passing The Reference itself not value of reference => SumArrEx02_02(reference) - SumArrEx02_02(numbers) ). Pass The Reference "Numbers" to the function parameter "arr" so any change to "arr" will affect the "numbers".
+            //Console.WriteLine(numbers[0]);//100 
 
             #endregion
+
+            #endregion
+
+            #endregion
+
+            #region Part 05 Functions - Passing By Out
+
+            #region Ex01
+
+            int num1 = 5, num2 = 6, summ, mull;
+            SumMul(num1, num2, out summ, out mull);
+
+            Console.WriteLine($"Summation =      {summ}");//11
+            Console.WriteLine($"Multiplication = {mull}");//30
 
             #endregion
 
