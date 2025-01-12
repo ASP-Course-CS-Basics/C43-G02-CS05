@@ -163,7 +163,7 @@
 
         #region Ex01
 
-        static void SumMul(int x,int y,out int summation,out int multiplication)
+        static void SumMul(int x,int y,out int summation,out int multiplication)//The output parameters must be initialized with value into function, regardless they enter function with value or not.
         {
             summation = x + y;
             multiplication = x * y;
