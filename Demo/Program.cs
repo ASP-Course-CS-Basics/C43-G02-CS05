@@ -225,6 +225,129 @@ namespace Demo
 
         #endregion
 
+        #region Part 08 Functions - Params in C# 13.0
+
+        #region Ex01 - Params Parameter Of Type List of integers.
+
+        static int SumNumbers(params List<int> numbers)//Params Parameter Of Type List of integers [C# 13.0] feature
+        {
+            int result = 0;
+            if (numbers?.Count > 0)
+            {
+                for (int i = 0; i < numbers.Count; i++)
+                {
+                    result += numbers[i];
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #region Ex02 - Params Parameter/reference Of Type Interface IEnumerable [Develop Against Interface not specific class].
+
+        static int SumNumbers02(params IEnumerable<int> numbers)//This Reference "numbers" can refer to reference/object of type any class that implement IEnumerable interface
+                                                                //and implement the method "enumeration" meaning this class is collection which can iterate over it
+         //Note => The reference "numbers" only sea the method "enumeration" that is inside the object passed to it when calling the function, so the field count is not accessible so ypu can't use it inside code.
+         //{
+         //    int result = 0;
+         //    if (numbers?.Count > 0)
+         //    {
+         //        for (int i = 0; i < numbers.Count; i++)
+         //        {
+         //            result += numbers[i];
+         //        }
+         //    }
+         //    return result;
+         //}
+
+        {
+            int result = 0;
+            if (numbers is not null)
+            {
+               foreach(int number in numbers)
+                {
+                    result += number;
+                }
+            }
+            return result;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Part 10 Exception Handling and Protective Code
+
+        #region Ex01 - Without Using Try-Catch.
+
+        static void DummyCode01()
+        {
+            int x, y, z;
+            x = int.Parse(Console.ReadLine());//Through exception if user enter string (and string can't be converted to int) [Format Exception].
+            y = int.Parse(Console.ReadLine());//Through exception if user enter string (and string can't be converted to int) [Format Exception].
+
+            z = x / y;//Through exception if user enter y = 0 [Divide By Zero Exception].
+
+            int[] arr = new int[] { 1, 2, 3 };
+            arr[100] = 20;//Through Exception [Out Of Range Exception] [Try to access index out of array range].
+        }
+
+        #endregion
+
+        #region Ex02 - Using Try-Catch.
+
+        static void DummyCode02()
+        {
+            try
+            {
+                int x, y, z;
+                x = int.Parse(Console.ReadLine());//Through exception if user enter string (and string can't be converted to int) [Format Exception].
+                y = int.Parse(Console.ReadLine());//Through exception if user enter string (and string can't be converted to int) [Format Exception].
+
+                z = x / y;//Through exception if user enter y = 0 [Divide By Zero Exception].
+
+                int[] arr = new int[] { 1, 2, 3 };
+                arr[100] = 20;//Through Exception [Out Of Range Exception] [Try to access index out of array range].
+            }
+            catch (Exception ex)//reference in stack refer to the created object in heap while exception occur.
+            { 
+                Console.WriteLine(ex.Message);//Friendly message to user.
+            }
+        }
+
+        #endregion
+
+        #region Ex03 - Write DummyCode() In Protective way - not use try-catch because i expected the exception that will occured
+
+        static void DummyCodeProtective()
+        {
+            int x, y, z;
+            do
+            {
+                Console.Write("Enter The First Number: ");
+            } while ( !(int.TryParse(Console.ReadLine(),out x)) );
+
+            do
+            {
+                Console.Write("Enter The Second Number: ");
+            } while ( !(int.TryParse(Console.ReadLine(),out y)) || y==0 );
+
+            z = x / y;
+
+            int[] arr = new int[] { 1, 2, 3 };
+            if (arr?.Length > 100)
+            {
+                arr[100] = 20;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+
+
         static void Main(string[] args)
         {
 
@@ -377,20 +500,154 @@ namespace Demo
 
             #region Part 07 Functions - Params
 
-            int[] numbers = new int[] { 1, 2, 3, 4, 5, 6, 7 };//No Need To Do This.
-            int result = SumArr(1, 2, 3, 4, 5, 6, 7);//Do this.
+            //int[] numbers = new int[] { 1, 2, 3, 4, 5, 6, 7 };//No Need To Do This.
+            //int result = SumArr(1, 2, 3, 4, 5, 6, 7);//Do this.
 
-            Console.WriteLine(SumArr(numbers));//28  
-            Console.WriteLine(result);//28
+            //Console.WriteLine(SumArr(numbers));//28  
+            //Console.WriteLine(result);//28
 
-            /*
-                 * Params Parameter Must Be The Last Parameter In Method Parameters.
-                 * Params Parameter Must Be of Type array of integers int[].
-                 * Method can have only one params parameter.
-                 * Start with (.NET 9 - C# 13) params parameter may be of type array of integers or any collection.
-             */
+            ///*
+            //     * Params Parameter Must Be The Last Parameter In Method Parameters.
+            //     * Params Parameter Must Be of Type array of integers int[].
+            //     * Method can have only one params parameter.
+            //     * Start with (.NET 9 - C# 13) params parameter may be of type array of integers or any collection.
+            // */
 
             #endregion
+
+            #region Part 08 Functions - Params in C# 13.0
+
+            #region Ex01 - Params Parameter Of Type List of integers.
+
+            //List<int> listNumbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7 };//No need to do this, if the parameter is params.
+            //int result = SumNumbers(1, 2, 3, 4, 5, 6, 7);
+
+            //Console.WriteLine(SumNumbers(listNumbers));//28
+            //Console.WriteLine(result);//28
+
+            #endregion
+
+            #region Ex02 - Params Parameter/reference Of Type Interface IEnumerable [Develop Against Interface not specific class]
+
+            // int[] ArrayNumbers = new int[] { 1, 2, 3, 4, 5 };
+
+            // int result01 = SumNumbers02(ArrayNumbers);//Passing Reference of type Array of integers "ArrayNumbers" to the reference of type interface "numbers" in method parameter. 
+            // int result02 = SumNumbers02(1, 2, 3, 4, 5);//Passing seperated values because the parameter of method "SumNumbers02" is "params"
+
+            // Console.WriteLine(result01);//15
+            // Console.WriteLine(result02);//15
+
+            ////===================================================================================================================================================================================
+
+            // List<int> ListNumbers = new List<int>(){ 1, 2, 3, 4, 5 };
+
+            // int result001 = SumNumbers02(ArrayNumbers);//Passing Reference of type List of integers "ListNumbers" to the reference of type interface "numbers" in method parameter. 
+            // int result002 = SumNumbers02(1, 2, 3, 4, 5);//Passing seperated values because the parameter of method "SumNumbers02" is "params"
+
+            // Console.WriteLine(result01);//15
+            // Console.WriteLine(result02);//15
+
+            #endregion
+
+            #endregion
+
+            #region  Part 10 Exception Handling and Protective Code
+
+            #region Ex01 - Without Using Try-Catch.
+            
+            //DummyCode01();
+
+            ///*
+            //     * In This Case If Any Of Lines Inside Function Caused Exception The Program Will Stop The Execution And Throught Exception
+            //     * Mean That If I Have Any Thing After This Calling Of Function "DummyCode01()" in Main(), it will not executed.
+            // */
+
+            //Console.WriteLine("Code After DummyCode() Will Not Executeed If there is any lines inside DummyCode() through exception!");
+
+            #endregion
+
+            #region Ex02 - Using Try-Catch.
+
+            //DummyCode02();
+
+            /*
+                 * In This Case If Any Of Lines Inside Try block Caused Exception The CLR Will Stop The Execution of rest lines inside try block 
+                 * And make object from caused exception and i hold it in reference of type Exception in Catch parameter, and view friendly message, after this if Main() has any code after calling of DummyCode() it will be executed
+                 * Mean That If I Have Any Thing After This Calling Of Function "DummyCode01()" in Main(), it will  executed.
+             */
+
+            //Console.WriteLine("Code After DummyCode() Will Executed Regardless there is exception inside try block or not!");
+
+            #endregion
+
+            #region Exeptions Types =>
+
+            //There Are Two Classes Inherit From Exception Class => 
+
+            /*
+                 * 1- SystemException -> For Software/Coding Exceptions 
+                    * 1.1- FormatException
+                    * 1.2- OutOfRangeException
+                    * 1.3- NullReferenceException
+                    * 1.4- InvalidOperationException
+                    * 1.5- ArithmeticException
+                        * 1.5.1- DivideByZeroException
+                        * 1.5.2- OverFlowException
+                 * 2- ApplicationException -> For Hardware Exceptions (RAM,CPU,...).  
+            */
+
+            #endregion
+
+            #region Ex03 - Write DummyCode() In Protective way - not use try-catch because i expected the exception that will occured
+
+            //DummyCodeProtective();
+
+            #region try - catch - finally
+
+            //We use finally to deallocate unmanaged resources like (close open connection of DB - close the file that we open or modify in it in PC).
+            //Finally block will executed regardless there are exception or not.
+
+            #region Finally block executed although it's no exceptions
+
+            //try
+            //{
+            //    DummyCodeProtective();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Finally block");//Finally block
+            //}
+
+            #endregion 
+
+            #region Finally block executed although exceptions
+
+            //try
+            //{
+            //    DummyCodeProtective();
+            //    throw new Exception();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);//Exception of type 'System.Exception' was thrown.
+            //}
+            //finally
+            //{
+            //    Console.WriteLine("Finally block");//Finally block
+            //}
+
+            #endregion
+
+            #endregion
+
+            #endregion
+
+            #endregion
+
         }
     }
 }
